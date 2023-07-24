@@ -1,0 +1,31 @@
+{
+    "name": "microit/dashboard-module-github",
+    "description": "A laravel dashboard module for a github integration",
+    "autoload": {
+        "psr-4": {
+            "Microit\\DashboardModuleGithub\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jeroen el Hahaoui",
+            "email": "jeroen@micro-it.nl"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "illuminate/support": "^10.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Microit\\DashboardModuleGithub\\GithubServiceProvider"
+            ]
+        }
+    }
+}
