@@ -6,7 +6,7 @@ use Exception;
 
 class Webhook
 {
-    public function __construct(public readonly object $request)
+    public function __construct(public readonly array $request)
     {
     }
 
