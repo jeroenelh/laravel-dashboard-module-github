@@ -12,8 +12,8 @@ class WebhookController
     {
         $event = $request->header('X-GitHub-Event', null);
 
-        if (!is_string($event)) {
-            throw new Exception("Unknown github webhook event");
+        if (! is_string($event)) {
+            throw new Exception('Unknown github webhook event');
         }
 
         $eventClass = '\Microit\DashboardModuleGithub\Webhooks\\'.$event;
