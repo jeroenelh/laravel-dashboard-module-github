@@ -8,6 +8,5 @@ class WebhookController
 {
     public function webhook(Request $request): void
     {
-
     }
 }
