@@ -6,6 +6,6 @@ class Ping extends Webhook
 {
     public function process(): void
     {
-        echo 'TEST!';
+        $this->response(['status' => 'ok', 'message' => 'Pong!']);
     }
 }
