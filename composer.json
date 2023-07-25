@@ -16,16 +16,49 @@
         "php": "^8.2",
         "ext-curl": "*",
         "ext-json": "*",
-        "illuminate/support": "^10.0"
+        "illuminate/support": "^10.0",
+        "microit/dashboard-module-git": "dev-main"
     },
-    "config": {
-        "sort-packages": true
+    "require-dev": {
+        "vimeo/psalm": "^5.11",
+        "friendsofphp/php-cs-fixer": "^3.16",
+        "phpmd/phpmd" : "@stable",
+        "brainmaestro/composer-git-hooks": "dev-master"
+    },
+    "scripts": {
+        "post-install-cmd": "cghooks add --ignore-lock",
+        "post-update-cmd": "cghooks update",
+        "psalm": "./vendor/bin/psalm --no-cache",
+        "php-cs-fixer": "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php",
+        "phpmd": "./vendor/bin/phpmd ./src text ./phpmd.xml"
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Microit\\DashboardModuleGithub\\GithubServiceProvider"
             ]
+        },
+        "hooks": {
+            "config": {
+                "stop-on-failure": ["pre-push"]
+            },
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php"
+            ],
+            "pre-push": [
+                "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php --dry-run --stop-on-violation",
+                "composer run psalm",
+                "composer run phpmd"
+            ],
+            "post-merge": "composer update"
         }
-    }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
