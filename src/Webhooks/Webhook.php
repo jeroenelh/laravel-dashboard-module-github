@@ -2,7 +2,6 @@
 
 namespace Microit\DashboardModuleGithub\Webhooks;
 
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Microit\DashboardModuleGithub\HttpStatusCodes;
@@ -16,6 +15,7 @@ class Webhook
         $body = $this->request->input();
         if (! is_array($body)) {
             $this->responseServerError('Input malformed');
+
             return;
         }
 
@@ -27,7 +27,7 @@ class Webhook
         $this->responseServerError('Process not implemented for '.__CLASS__);
     }
 
-    public function responseServerError($message): void
+    public function responseServerError(string $message): void
     {
         $this->response(['status' => 'error', 'message' => $message], HttpStatusCodes::STATUS_501);
         Log::error('Webhook error', ['Webhook' => __CLASS__, 'Message' => $message]);
