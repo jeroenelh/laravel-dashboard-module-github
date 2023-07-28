@@ -10,7 +10,7 @@ class WebhookController
 {
     public function webhook(Request $request): void
     {
-        $event = $request->header('X-GitHub-Event', null);
+        $event = $request->header('X-GitHub-Event');
 
         if (! is_string($event)) {
             throw new Exception('Unknown github webhook event');

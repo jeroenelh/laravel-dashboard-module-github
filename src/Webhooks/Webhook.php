@@ -24,7 +24,11 @@ class Webhook
 
     public function process(): void
     {
-        $this->responseServerError('Process not implemented for '.__CLASS__);
+        $event = $this->request->header('X-GitHub-Event');
+        if (is_array($event)) {
+            $event = (string) $event[0];
+        }
+        $this->responseServerError('Process not implemented for '.($event ?? 'unknown'));
     }
 
     public function responseServerError(string $message): void

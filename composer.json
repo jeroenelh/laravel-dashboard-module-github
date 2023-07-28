@@ -30,7 +30,8 @@
         "post-update-cmd": "cghooks update",
         "psalm": "./vendor/bin/psalm --no-cache",
         "php-cs-fixer": "./vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php",
-        "phpmd": "./vendor/bin/phpmd ./src text ./phpmd.xml"
+        "phpmd": "./vendor/bin/phpmd ./src text ./phpmd.xml",
+        "check-code": "composer run psalm && composer run phpmd && composer run php-cs-fixer"
     },
     "extra": {
         "laravel": {
