@@ -4,6 +4,7 @@ namespace Microit\DashboardModuleGithub\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Microit\DashboardModuleGithub\Webhooks\Webhook;
 
 class WebhookController
@@ -17,6 +18,7 @@ class WebhookController
         }
 
         $class = new Webhook($request);
+        $event = Str::studly($event);
         $eventClass = '\Microit\DashboardModuleGithub\Webhooks\\'.$event;
         if (class_exists($eventClass)) {
             /** @var Webhook $eventClass */
