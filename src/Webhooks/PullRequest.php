@@ -13,12 +13,21 @@ class PullRequest extends Webhook
 
     protected ?Repository $repository = null;
 
+    protected ?User $user = null;
+
     public function process(): void
     {
         $this->repository = $this->getRepository();
+        $this->user = $this->getUser();
 
         assert(is_array($this->body['pull_request']));
         assert(is_int($this->body['pull_request']['id']));
+        assert(is_array($this->body['pull_request']['user']));
+
+        $pullRequestUser = new User(
+            id: (int) $this->body['pull_request']['user']['id'],
+            name: (string) $this->body['pull_request']['user']['login']
+        );
 
         $this->pullRequest = new PullRequestModel(
             id: $this->body['pull_request']['id'],
@@ -26,7 +35,7 @@ class PullRequest extends Webhook
             number: (int) $this->body['pull_request']['number'],
             state: (string) $this->body['pull_request']['state'],
             repository: $this->repository,
-            user: $this->getUser(),
+            user: $pullRequestUser,
             fromBranch: $this->getFromBranch(),
             toBranch: $this->getToBranch()
         );
@@ -47,12 +56,11 @@ class PullRequest extends Webhook
 
     private function getUser(): User
     {
-        assert(is_array($this->body['pull_request']));
-        assert(is_array($this->body['pull_request']['user']));
+        assert(is_array($this->body['sender']));
 
         return new User(
-            id: (int) $this->body['pull_request']['user']['id'],
-            name: (string) $this->body['pull_request']['user']['login']
+            id: (int) $this->body['sender']['id'],
+            name: (string) $this->body['sender']['login']
         );
     }
 
