@@ -28,12 +28,12 @@ class Webhook
         if (is_array($event)) {
             $event = (string) $event[0];
         }
-        $this->responseServerError('Process not implemented for '.($event ?? 'unknown'));
+        $this->responseServerError('Process not implemented for '.($event ?? 'unknown'), HttpStatusCodes::STATUS_501);
     }
 
-    public function responseServerError(string $message): void
+    public function responseServerError(string $message, HttpStatusCodes $statusCode = HttpStatusCodes::STATUS_503): void
     {
-        $this->response(['status' => 'error', 'message' => $message], HttpStatusCodes::STATUS_501);
+        $this->response(['status' => 'error', 'message' => $message], $statusCode);
         Log::error('Webhook error', ['Webhook' => __CLASS__, 'Message' => $message]);
     }
 
