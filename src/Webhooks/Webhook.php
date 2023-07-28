@@ -4,6 +4,7 @@ namespace Microit\DashboardModuleGithub\Webhooks;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Microit\DashboardModuleGithub\HttpStatusCodes;
 
 class Webhook
@@ -28,7 +29,8 @@ class Webhook
         if (is_array($event)) {
             $event = (string) $event[0];
         }
-        $this->responseServerError('Process not implemented for '.($event ?? 'unknown'), HttpStatusCodes::STATUS_501);
+        $event = Str::studly($event ?? 'unknown');
+        $this->responseServerError('Process not implemented for '.$event, HttpStatusCodes::STATUS_501);
     }
 
     public function responseServerError(string $message, HttpStatusCodes $statusCode = HttpStatusCodes::STATUS_503): void
