@@ -4,5 +4,5 @@ namespace Microit\DashboardModuleGithub\Models;
 
 class GithubUser extends \Microit\DashboardModuleGit\Models\User
 {
-    const SOURCE = 'github';
+    public static string $source = 'github';
 }

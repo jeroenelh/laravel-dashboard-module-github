@@ -4,5 +4,5 @@ namespace Microit\DashboardModuleGithub\Models;
 
 class GithubPullRequest extends \Microit\DashboardModuleGit\Models\PullRequest
 {
-    const SOURCE = 'github';
+    public static string $source = 'github';
 }

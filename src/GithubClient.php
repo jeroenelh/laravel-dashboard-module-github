@@ -53,12 +53,12 @@ class GithubClient extends Client
             assert(is_string($item->name));
             assert(is_bool($item->private));
 
-            return new GithubRepository(
-                (string) $item->id,
-                $item->owner->login,
-                $item->name,
-                (! $item->private),
-            );
+            return GithubRepository::fromAttributes([
+                'id' => (string) $item->id,
+                'user' => $item->owner->login,
+                'name' => $item->name,
+                'is_public' => (! $item->private),
+            ]);
         }, $response));
     }
 }

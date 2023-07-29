@@ -6,6 +6,9 @@ use Microit\DashboardModuleGit\Models\Branch;
 use Microit\DashboardModuleGit\Models\PullRequest as PullRequestModel;
 use Microit\DashboardModuleGit\Models\Repository;
 use Microit\DashboardModuleGit\Models\User;
+use Microit\DashboardModuleGithub\Models\GithubBranch;
+use Microit\DashboardModuleGithub\Models\GithubRepository;
+use Microit\DashboardModuleGithub\Models\GithubUser;
 
 class PullRequest extends Webhook
 {
@@ -24,10 +27,10 @@ class PullRequest extends Webhook
         assert(is_int($this->body['pull_request']['id']));
         assert(is_array($this->body['pull_request']['user']));
 
-        $pullRequestUser = new User(
-            id: (int) $this->body['pull_request']['user']['id'],
-            name: (string) $this->body['pull_request']['user']['login']
-        );
+        $pullRequestUser = GithubUser::fromAttributes([
+            'id' => (int) $this->body['pull_request']['user']['id'],
+            'name' => (string) $this->body['pull_request']['user']['login'],
+        ]);
 
         $this->pullRequest = new PullRequestModel(
             id: $this->body['pull_request']['id'],
@@ -46,45 +49,49 @@ class PullRequest extends Webhook
         assert(is_array($this->body['repository']));
         assert(is_array($this->body['repository']['owner']));
 
-        return new Repository(
-            id: (string) $this->body['repository']['id'],
-            user: (string) $this->body['repository']['owner']['login'],
-            name: (string) $this->body['repository']['name'],
-            isPublic: ($this->body['repository']['private'] === false)
-        );
+        return GithubRepository::fromAttributes([
+            'id' => (string) $this->body['repository']['id'],
+            'user' => (string) $this->body['repository']['owner']['login'],
+            'name' => (string) $this->body['repository']['name'],
+            'is_piblic' => ($this->body['repository']['private'] === false),
+        ]);
     }
 
     private function getUser(): User
     {
         assert(is_array($this->body['sender']));
 
-        return new User(
-            id: (int) $this->body['sender']['id'],
-            name: (string) $this->body['sender']['login']
-        );
+        return GithubUser::fromAttributes([
+            'id' => (int) $this->body['sender']['id'],
+            'name' => (string) $this->body['sender']['login'],
+        ]);
     }
 
     private function getFromBranch(): Branch
     {
         assert(is_array($this->body['pull_request']));
         assert(is_array($this->body['pull_request']['head']));
+        assert(is_array($this->body['pull_request']['head']['user']));
         assert(is_object($this->repository));
 
-        return new Branch(
-            name: (string) $this->body['pull_request']['head']['ref'],
-            repository: $this->repository
-        );
+        return GithubBranch::fromAttributes([
+            'name' => (string) $this->body['pull_request']['head']['ref'],
+            'user' => (string) $this->body['pull_request']['head']['user']['login'],
+            'repository' => $this->repository->id,
+        ]);
     }
 
     private function getToBranch(): Branch
     {
         assert(is_array($this->body['pull_request']));
         assert(is_array($this->body['pull_request']['base']));
+        assert(is_array($this->body['pull_request']['base']['user']));
         assert(is_object($this->repository));
 
-        return new Branch(
-            name: (string) $this->body['pull_request']['base']['ref'],
-            repository: $this->repository
-        );
+        return GithubBranch::fromAttributes([
+            'name' => (string) $this->body['pull_request']['base']['ref'],
+            'user' => (string) $this->body['pull_request']['base']['user']['login'],
+            'repository' => $this->repository->id,
+        ]);
     }
 }
