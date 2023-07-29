@@ -4,4 +4,5 @@ namespace Microit\DashboardModuleGithub\Models;
 
 class GithubPullRequestApprove extends \Microit\DashboardModuleGit\Models\PullRequestApprove
 {
+    const SOURCE = 'github';
 }
