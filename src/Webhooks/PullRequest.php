@@ -78,7 +78,7 @@ class PullRequest extends Webhook
             'id' => (string) $this->body['pull_request']['head']['label'],
             'user' => (string) $this->body['pull_request']['head']['user']['login'],
             'name' => (string) $this->body['pull_request']['head']['ref'],
-            'repository_id' => $this->repository->id,
+            'repository_id' => (int) $this->repository->id,
         ]);
     }
 
@@ -93,7 +93,7 @@ class PullRequest extends Webhook
             'id' => (string) $this->body['pull_request']['base']['label'],
             'user' => (string) $this->body['pull_request']['base']['user']['login'],
             'name' => (string) $this->body['pull_request']['base']['ref'],
-            'repository_id' => $this->repository->id,
+            'repository_id' => (int) $this->repository->id,
         ]);
     }
 }
