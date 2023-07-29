@@ -1281,12 +1281,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeroenelh/laravel-dashboard-module-git.git",
-                "reference": "9cc3ccf3120e644a312ed6f22b54dab0f7440edb"
+                "reference": "519b18f93d1254b7293f0e01822176abf4a1ef4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeroenelh/laravel-dashboard-module-git/zipball/9cc3ccf3120e644a312ed6f22b54dab0f7440edb",
-                "reference": "9cc3ccf3120e644a312ed6f22b54dab0f7440edb",
+                "url": "https://api.github.com/repos/jeroenelh/laravel-dashboard-module-git/zipball/519b18f93d1254b7293f0e01822176abf4a1ef4d",
+                "reference": "519b18f93d1254b7293f0e01822176abf4a1ef4d",
                 "shasum": ""
             },
             "require": {
@@ -1347,7 +1347,7 @@
                 "issues": "https://github.com/jeroenelh/laravel-dashboard-module-git/issues",
                 "source": "https://github.com/jeroenelh/laravel-dashboard-module-git/tree/main"
             },
-            "time": "2023-07-29T08:22:19+00:00"
+            "time": "2023-07-29T08:55:54+00:00"
         },
         {
             "name": "nesbot/carbon",

@@ -75,8 +75,9 @@ class PullRequest extends Webhook
         assert(is_object($this->repository));
 
         return GithubBranch::fromAttributes([
-            'name' => (string) $this->body['pull_request']['head']['ref'],
+            'id' => (string) $this->body['pull_request']['head']['label'],
             'user' => (string) $this->body['pull_request']['head']['user']['login'],
+            'name' => (string) $this->body['pull_request']['head']['ref'],
             'repository_id' => $this->repository->id,
         ]);
     }
@@ -89,8 +90,9 @@ class PullRequest extends Webhook
         assert(is_object($this->repository));
 
         return GithubBranch::fromAttributes([
-            'name' => (string) $this->body['pull_request']['base']['ref'],
+            'id' => (string) $this->body['pull_request']['base']['label'],
             'user' => (string) $this->body['pull_request']['base']['user']['login'],
+            'name' => (string) $this->body['pull_request']['base']['ref'],
             'repository_id' => $this->repository->id,
         ]);
     }
