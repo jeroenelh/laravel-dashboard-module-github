@@ -77,7 +77,7 @@ class PullRequest extends Webhook
         return GithubBranch::fromAttributes([
             'name' => (string) $this->body['pull_request']['head']['ref'],
             'user' => (string) $this->body['pull_request']['head']['user']['login'],
-            'repository' => $this->repository->id,
+            'repository_id' => $this->repository->id,
         ]);
     }
 
@@ -91,7 +91,7 @@ class PullRequest extends Webhook
         return GithubBranch::fromAttributes([
             'name' => (string) $this->body['pull_request']['base']['ref'],
             'user' => (string) $this->body['pull_request']['base']['user']['login'],
-            'repository' => $this->repository->id,
+            'repository_id' => $this->repository->id,
         ]);
     }
 }
