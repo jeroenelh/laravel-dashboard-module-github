@@ -53,7 +53,7 @@ class PullRequest extends Webhook
             'id' => (string) $this->body['repository']['id'],
             'user' => (string) $this->body['repository']['owner']['login'],
             'name' => (string) $this->body['repository']['name'],
-            'is_piblic' => ($this->body['repository']['private'] === false),
+            'is_public' => ($this->body['repository']['private'] === false),
         ]);
     }
 
