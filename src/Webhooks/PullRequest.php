@@ -32,16 +32,16 @@ class PullRequest extends Webhook
             'name' => (string) $this->body['pull_request']['user']['login'],
         ]);
 
-        $this->pullRequest = new PullRequestModel(
-            id: $this->body['pull_request']['id'],
-            title: (string) $this->body['pull_request']['title'],
-            number: (int) $this->body['pull_request']['number'],
-            state: (string) $this->body['pull_request']['state'],
-            repository: $this->repository,
-            user: $pullRequestUser,
-            fromBranch: $this->getFromBranch(),
-            toBranch: $this->getToBranch()
-        );
+        $this->pullRequest = PullRequestModel::fromAttributes([
+            'id' => $this->body['pull_request']['id'],
+            'title' => (string) $this->body['pull_request']['title'],
+            'number' => (int) $this->body['pull_request']['number'],
+            'state' => (string) $this->body['pull_request']['state'],
+            'repository_id' => (int) $this->repository->id,
+            'user_id' => (int) $pullRequestUser->id,
+            'from_branch_id' => (string) $this->getFromBranch()->id,
+            'to_branch_id' => (string) $this->getToBranch()->id,
+        ]);
     }
 
     private function getRepository(): Repository
