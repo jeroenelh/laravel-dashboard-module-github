@@ -49,7 +49,7 @@ class PullRequest extends Webhook
                 $event = new PullRequestEdited($this->pullRequest, $this->triggerUser);
                 break;
             default:
-                throw new Exception('Unknown action '. (string) $this->body['action']);
+                throw new Exception('Unknown action '.(string) $this->body['action']);
         }
 
         echo var_export($event, true);
