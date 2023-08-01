@@ -52,7 +52,7 @@ class PullRequest extends Webhook
                 throw new Exception('Unknown action '.(string) $this->body['action']);
         }
 
-        echo var_export($event, true);
+        $event->notify();
     }
 
     protected function getPullRequest(): PullRequestModel
