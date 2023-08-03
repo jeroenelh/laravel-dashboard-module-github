@@ -70,10 +70,10 @@ class PullRequest extends Webhook
             'title' => (string) $this->body['pull_request']['title'],
             'number' => (int) $this->body['pull_request']['number'],
             'state' => (string) $this->body['pull_request']['state'],
-            'repository_id' => (int) $this->getRepository()->id,
-            'user_id' => (int) $this->getPullRequestUser()->id,
-            'from_branch_id' => (string) $this->getFromBranch()->id,
-            'to_branch_id' => (string) $this->getToBranch()->id,
+            'repository_id' => $this->getRepository()->id,
+            'user_id' => $this->getPullRequestUser()->id,
+            'from_branch_id' => $this->getFromBranch()->id,
+            'to_branch_id' => $this->getToBranch()->id,
         ]);
 
         return $this->pullRequest;
