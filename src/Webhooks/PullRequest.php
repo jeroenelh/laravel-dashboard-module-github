@@ -10,6 +10,7 @@ use Microit\DashboardModuleGit\Models\Branch;
 use Microit\DashboardModuleGit\Models\PullRequest as PullRequestModel;
 use Microit\DashboardModuleGit\Models\Repository;
 use Microit\DashboardModuleGit\Models\User;
+use Microit\DashboardModuleGithub\Models\GithubPullRequest;
 use Microit\DashboardModuleGithub\Models\GithubBranch;
 use Microit\DashboardModuleGithub\Models\GithubRepository;
 use Microit\DashboardModuleGithub\Models\GithubUser;
@@ -65,7 +66,7 @@ class PullRequest extends Webhook
         assert(is_int($this->body['pull_request']['id']));
         assert(is_array($this->body['pull_request']['user']));
 
-        $this->pullRequest = PullRequestModel::fromAttributes([
+        $this->pullRequest = GithubPullRequest::fromAttributes([
             'id' => $this->body['pull_request']['id'],
             'title' => (string) $this->body['pull_request']['title'],
             'number' => (int) $this->body['pull_request']['number'],
