@@ -109,6 +109,7 @@ class PullRequest extends Webhook
         $this->triggerUser = GithubUser::fromAttributes([
             'id' => (int) $this->body['sender']['id'],
             'name' => (string) $this->body['sender']['login'],
+            'avatar' => (string) $this->body['sender']['avatar_url'],
         ]);
 
         return $this->triggerUser;
@@ -126,6 +127,7 @@ class PullRequest extends Webhook
         $this->pullRequestUser = GithubUser::fromAttributes([
             'id' => (int) $this->body['pull_request']['user']['id'],
             'name' => (string) $this->body['pull_request']['user']['login'],
+            'avatar' => (string) $this->body['pull_request']['user']['avatar_url'],
         ]);
 
         return $this->pullRequestUser;
