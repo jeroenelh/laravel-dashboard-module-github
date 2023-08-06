@@ -10,8 +10,8 @@ use Microit\DashboardModuleGit\Models\Branch;
 use Microit\DashboardModuleGit\Models\PullRequest as PullRequestModel;
 use Microit\DashboardModuleGit\Models\Repository;
 use Microit\DashboardModuleGit\Models\User;
-use Microit\DashboardModuleGithub\Models\GithubPullRequest;
 use Microit\DashboardModuleGithub\Models\GithubBranch;
+use Microit\DashboardModuleGithub\Models\GithubPullRequest;
 use Microit\DashboardModuleGithub\Models\GithubRepository;
 use Microit\DashboardModuleGithub\Models\GithubUser;
 
